@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/bt-it-generator.iml" filepath="$PROJECT_DIR$/.idea/bt-it-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/bt-it-generator-core/bt-it-generator-core.iml" filepath="$PROJECT_DIR$/bt-it-generator-core/bt-it-generator-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/embed-test/embed-test.iml" filepath="$PROJECT_DIR$/embed-test/embed-test.iml" />
     </modules>
   </component>
 </project>

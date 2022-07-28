@@ -2,6 +2,9 @@ package work.bottle.plugin;
 
 import work.bottle.plugin.exception.MachineNumOutOfBoundsException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SimpleIdService implements IdService {
 
     private IdConverter idConverter;
@@ -9,7 +12,7 @@ public class SimpleIdService implements IdService {
     private int machineNum;
 
     public SimpleIdService(int machineNum) {
-        this(machineNum, new HighSwallowIdGenerator(), DefaultIdConverter.CURRENT);
+        this(machineNum, new HighSwallowIdGenerator(machineNum), DefaultIdConverter.CURRENT);
     }
 
     public SimpleIdService(int machineNum, IdGenerator idGenerator) {
@@ -27,6 +30,15 @@ public class SimpleIdService implements IdService {
 
     @Override
     public long next() {
-        return idConverter.convert(idGenerator.generateId(machineNum));
+        return idConverter.convert(idGenerator.generateId());
+    }
+
+    @Override
+    public List<Long> next(int n) {
+        n = 100 < n || 0 > n ? 100 : n;
+        List<Id> ids = idGenerator.generateId(n);
+        List<Long> list = new ArrayList<>();
+        ids.forEach(id -> list.add(idConverter.convert(id)));
+        return list;
     }
 }

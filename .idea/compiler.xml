@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="bt-it-generator-core" />
+        <module name="embed-test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="bt-it-generator" target="1.8" />
       <module name="bt-it-generator-core" target="1.8" />
+      <module name="embed-test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
