@@ -9,24 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class HighPrecisionIdGenerator implements IdGenerator{
-    private static final Logger logger = LoggerFactory.getLogger(HighPrecisionIdGenerator.class);
+public class HighPrecisionIdPopulator implements IdPopulator{
+    private static final Logger logger = LoggerFactory.getLogger(HighPrecisionIdPopulator.class);
     private volatile long lastTimestamp = 0l;
     private volatile int sequence = 0;
 
     private ReentrantLock lock = new ReentrantLock();
 
-    private final int machineNum;
-
-    public HighPrecisionIdGenerator(int machineNum) {
-        this.machineNum = machineNum;
-    }
 
     @Override
-    public Id generateId() {
-        Id id = new Id();
-        id.setType(Invariant.BT_HIGH_PRECISION);
-        id.setMachineNum(machineNum & Invariant.BT_MACHINE_NUMBER_MASK);
+    public void populate(Id id) {
         try {
             lock.lock();
             long ts = TimeUtils.getTimeMilliSeconds();
@@ -47,22 +39,16 @@ public class HighPrecisionIdGenerator implements IdGenerator{
             }
             id.setTimestamp(ts);
             id.setSequence(sequence++);
-            return id;
         } finally {
             lock.unlock();
         }
     }
 
     @Override
-    public List<Id> generateId(int n) {
-        Id id = null;
-        List<Id> retList = new ArrayList<>();
+    public void populate(List<Id> ids) {
         try {
             lock.lock();
-            id = new Id();
-            id.setType(Invariant.BT_HIGH_PRECISION);
-            id.setMachineNum(machineNum & Invariant.BT_MACHINE_NUMBER_MASK);
-            for (int i = 0; i < n; i++) {
+            for (Id id : ids) {
                 long ts = TimeUtils.getTimeMilliSeconds();
                 validateTimestamp(ts);
                 if (ts == lastTimestamp) {
@@ -81,14 +67,12 @@ public class HighPrecisionIdGenerator implements IdGenerator{
                 }
                 id.setTimestamp(ts);
                 id.setSequence(sequence++);
-                retList.add(id);
             }
-
-            return retList;
         } finally {
             lock.unlock();
         }
     }
+
 
     public long waitFotNextTick(long ts) {
         while (ts <= lastTimestamp) {

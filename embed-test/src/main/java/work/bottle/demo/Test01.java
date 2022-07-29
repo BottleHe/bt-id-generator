@@ -2,12 +2,10 @@ package work.bottle.demo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import work.bottle.plugin.HighPrecisionIdGenerator;
-import work.bottle.plugin.SimpleIdService;
+import work.bottle.plugin.HighPrecisionIdPopulator;
+import work.bottle.plugin.HighSwallowIdService;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
@@ -24,7 +22,7 @@ public class Test01 {
     public static void test01() {
         // Set<Long> testSet = new HashSet<>();
 
-        SimpleIdService simpleIdService = new SimpleIdService(0);
+        HighSwallowIdService simpleIdService = new HighSwallowIdService(0);
         int times = 1_000_000_000;
         int threadNum = 100;
         Thread[] threads = new Thread[threadNum];
@@ -70,7 +68,7 @@ public class Test01 {
     }
 
     public static void test02() {
-        SimpleIdService simpleIdService = new SimpleIdService(0, new HighPrecisionIdGenerator(0));
+        HighSwallowIdService simpleIdService = new HighSwallowIdService(0);
         int times = 1_000_000_000;
         int threadNum = 100;
         Thread[] threads = new Thread[threadNum];
@@ -102,7 +100,7 @@ public class Test01 {
     }
 
     public static void test03() {
-        SimpleIdService simpleIdService = new SimpleIdService(0);
+        HighSwallowIdService simpleIdService = new HighSwallowIdService(0);
         int times = 1_000_000_000;
         int threadNum = 100;
         Thread[] threads = new Thread[threadNum];

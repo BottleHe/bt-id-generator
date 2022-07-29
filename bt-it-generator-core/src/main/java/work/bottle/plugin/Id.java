@@ -21,6 +21,14 @@ public class Id {
     // 机器号( 可能再做细分 )
     private int machineNum;
 
+    public Id() {
+    }
+
+    public Id(int type, int machineNum) {
+        this.type = type;
+        this.machineNum = machineNum;
+    }
+
     public int getType() {
         return type;
     }

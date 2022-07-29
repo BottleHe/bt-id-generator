@@ -7,7 +7,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import work.bottle.plugin.SimpleIdService;
+import work.bottle.plugin.HighSwallowIdService;
 
 import java.util.*;
 import java.util.concurrent.Callable;
@@ -26,11 +26,86 @@ public class WriteIdToRedisRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        test3();
+        test5();
+    }
+
+    public void test5() {
+        logger.debug("Application begin to run ... ");
+        //redisTemplate.delete(REDIS_KEY);
+        HighSwallowIdService simpleIdService = new HighSwallowIdService(0);
+        int times = 30_000_000;
+        Set<Long> dataSet = new HashSet<>();
+        Long[] longs = new Long[times];
+        long start = System.nanoTime();
+        for (int j = 0; j < times; j++) {
+            longs[j] = simpleIdService.next();
+        }
+        long end = System.nanoTime();
+        dataSet.addAll(Arrays.asList(longs));
+        System.out.println("共计" + times + "次计算, 用时: " + (end - start) + "ns, " + ((end - start) / 1e6) + "ms, " +
+                "每毫秒计算次数: " + (times / ((end - start) / 1e6)) + ", " +
+                "每秒计算次数: " + (times / ((end - start) / 1e9)));
+
+        // logger.debug("共有数据条数: {}", redisTemplate.opsForSet().size(REDIS_KEY));
+        logger.debug("共有数据条数: {}", dataSet.size());
+    }
+
+    public void test4() {
+        logger.debug("Application begin to run ... ");
+        //redisTemplate.delete(REDIS_KEY);
+        HighSwallowIdService simpleIdService = new HighSwallowIdService(0);
+        int times = 10_000_000;
+        int threadNum = 100;
+        Thread[] threads = new Thread[threadNum];
+        FutureTask<List<Long>>[] tasks = new FutureTask[threadNum];
+        CountDownLatch countDownLatch = new CountDownLatch(threadNum);
+        Set<Long> dataSet = new HashSet<>();
+        for (int i = 0; i < threads.length; i++) {
+            tasks[i] = new FutureTask<>(new Callable<List<Long>>() {
+                @Override
+                public List<Long> call() throws Exception {
+                    List<Long> list = new ArrayList<>();
+                    for (int j = 0; j < times / threadNum; j++) {
+                        long id = simpleIdService.next();
+                        list.add(id);
+                    }
+                    countDownLatch.countDown();
+                    return list;
+                }
+            });
+            threads[i] = new Thread(tasks[i], String.format("TEST-THREAD-%d-%d", threadNum, i));
+        }
+        long start = System.nanoTime();
+        for (int i = 0; i < threadNum; i++) {
+            threads[i].start();
+        }
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        long end = System.nanoTime();
+        for (int i = 0; i < threadNum; i++) {
+            List<Long> longs = null;
+            try {
+                longs = tasks[i].get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            dataSet.addAll(Optional.ofNullable(longs).orElse(new ArrayList<>()));
+        }
+        System.out.println("共计" + times + "次计算, 用时: " + (end - start) + "ns, " + ((end - start) / 1e6) + "ms, " +
+                "每毫秒计算次数: " + (times / ((end - start) / 1e6)) + ", " +
+                "每秒计算次数: " + (times / ((end - start) / 1e9)));
+
+        // logger.debug("共有数据条数: {}", redisTemplate.opsForSet().size(REDIS_KEY));
+        logger.debug("共有数据条数: {}", dataSet.size());
     }
 
     public void test3() {
-        SimpleIdService simpleIdService = new SimpleIdService(0);
+        HighSwallowIdService simpleIdService = new HighSwallowIdService(0);
         int times = 1_000_000_000;
         int threadNum = 100;
         Thread[] threads = new Thread[threadNum];
@@ -77,8 +152,8 @@ public class WriteIdToRedisRunner implements ApplicationRunner {
     public void test2() {
         logger.debug("Application begin to run ... ");
         redisTemplate.delete(REDIS_KEY);
-        SimpleIdService simpleIdService = new SimpleIdService(0);
-        int times = 100_000_000;
+        HighSwallowIdService simpleIdService = new HighSwallowIdService(0);
+        int times = 10_000_000;
         int threadNum = 100;
         Thread[] threads = new Thread[threadNum];
         CountDownLatch countDownLatch = new CountDownLatch(threadNum);
@@ -124,8 +199,8 @@ public class WriteIdToRedisRunner implements ApplicationRunner {
 
     public void test1() {
         logger.debug("Application begin to run ... ");
-        redisTemplate.delete(REDIS_KEY);
-        SimpleIdService simpleIdService = new SimpleIdService(0);
+        //redisTemplate.delete(REDIS_KEY);
+        HighSwallowIdService simpleIdService = new HighSwallowIdService(0);
         int times = 10_000_000;
         int threadNum = 100;
         Thread[] threads = new Thread[threadNum];
@@ -155,6 +230,6 @@ public class WriteIdToRedisRunner implements ApplicationRunner {
                 "每毫秒计算次数: " + (times / ((end - start) / 1e6)) + ", " +
                 "每秒计算次数: " + (times / ((end - start) / 1e9)));
 
-        logger.debug("共有数据条数: {}", redisTemplate.opsForSet().size(REDIS_KEY));
+        // logger.debug("共有数据条数: {}", redisTemplate.opsForSet().size(REDIS_KEY));
     }
 }
