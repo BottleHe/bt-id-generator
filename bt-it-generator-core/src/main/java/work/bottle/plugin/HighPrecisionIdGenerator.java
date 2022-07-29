@@ -66,10 +66,10 @@ public class HighPrecisionIdGenerator implements IdGenerator{
                 long ts = TimeUtils.getTimeMilliSeconds();
                 validateTimestamp(ts);
                 if (ts == lastTimestamp) {
-                    if (0l == (ts & Invariant.BT_HIGH_PRECISION_TS_MASK)) {
+                    if (0l == (sequence & Invariant.BT_HIGH_PRECISION_SEQ_MASK)) {
                         // 时间越界了
                         if (logger.isDebugEnabled()) {
-                            logger.debug("序列号越界, 需要等到下一个时间点.");
+                            logger.debug("序列号越界[sequence = {}], 需要等到下一个时间点.", sequence);
                         }
                         ts = waitFotNextTick(ts);
                         sequence = 0;
