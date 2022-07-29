@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: embed-test
+  redis:
+    port: 6379
+    host: 192.168.99.5
+
+logging:
+  level:
+    root: info
+    work.bottle: debug

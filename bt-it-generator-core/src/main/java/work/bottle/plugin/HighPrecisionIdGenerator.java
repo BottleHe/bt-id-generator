@@ -32,8 +32,8 @@ public class HighPrecisionIdGenerator implements IdGenerator{
             long ts = TimeUtils.getTimeMilliSeconds();
             validateTimestamp(ts);
             if (ts == lastTimestamp) {
-                if (0l == (ts & Invariant.BT_HIGH_PRECISION_TS_MASK)) {
-                    // 时间越界了
+                if (0l == (sequence & Invariant.BT_HIGH_PRECISION_SEQ_MASK)) {
+                    // 同一时间序列号越界了
                     if (logger.isDebugEnabled()) {
                         logger.debug("序列号越界, 需要等到下一个时间点.");
                     }

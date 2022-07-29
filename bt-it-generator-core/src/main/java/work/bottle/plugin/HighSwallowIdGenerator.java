@@ -66,8 +66,8 @@ public class HighSwallowIdGenerator implements IdGenerator {
                 long ts = TimeUtils.getTimeSeconds();
                 validateTimestamp(ts);
                 if (ts == lastTimestamp) {
-                    if (0l == (ts & Invariant.BT_HIGH_SWALLOW_TS_MASK)) {
-                        // 时间越界了
+                    if (0l == (sequence & Invariant.BT_HIGH_SWALLOW_SEQ_MASK)) {
+                        // 序列号越界了
                         if (logger.isDebugEnabled()) {
                             logger.debug("序列号越界, 需要等到下一个时间点.");
                         }
