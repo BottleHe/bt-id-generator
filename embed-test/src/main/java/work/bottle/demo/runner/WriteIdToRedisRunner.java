@@ -26,7 +26,7 @@ public class WriteIdToRedisRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         logger.debug("Application begin to run ... ");
         redisTemplate.delete(REDIS_KEY);
-        SimpleIdService simpleIdService = new SimpleIdService(0, new HighPrecisionIdGenerator(0));
+        SimpleIdService simpleIdService = new SimpleIdService(0);
         int times = 1_000_000_000;
         int threadNum = 100;
         Thread[] threads = new Thread[threadNum];
