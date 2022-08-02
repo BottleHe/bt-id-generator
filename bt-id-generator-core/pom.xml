@@ -3,10 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <name>bt-it-generator-core</name>
-    <url>https://github.com/BottleHe/bt-it-generator</url>
+    <name>bt-id-generator-core</name>
+    <url>https://github.com/BottleHe/bt-id-generator</url>
     <groupId>work.bottle.plugin</groupId>
-    <artifactId>bt-it-generator-core</artifactId>
+    <artifactId>bt-id-generator-core</artifactId>
     <version>1.0.1</version>
     <description>Implementation of Distributed ID Generator Based on Snowflake Algorithm.</description>
     <properties>
@@ -23,8 +23,8 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/BottleHe/bt-it-generator</url>
-        <connection>https://github.com/BottleHe/bt-it-generator.git</connection>
+        <url>https://github.com/BottleHe/bt-id-generator</url>
+        <connection>https://github.com/BottleHe/bt-id-generator.git</connection>
     </scm>
     <developers>
         <developer>

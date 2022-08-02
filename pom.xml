@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>work.bottle.plugin</groupId>
-    <artifactId>bt-it-generator</artifactId>
+    <artifactId>bt-id-generator</artifactId>
     <version>1.0.1</version>
     <packaging>pom</packaging>
     <modules>
-        <module>bt-it-generator-core</module>
+        <module>bt-id-generator-core</module>
         <module>embed-test</module>
     </modules>
     <properties>
