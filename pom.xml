@@ -11,6 +11,7 @@
     <modules>
         <module>bt-id-generator-core</module>
         <module>embed-test</module>
+        <module>http-bt-id-consumer-client</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

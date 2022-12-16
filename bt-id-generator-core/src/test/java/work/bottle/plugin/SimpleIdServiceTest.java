@@ -15,6 +15,15 @@ public class SimpleIdServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(SimpleIdServiceTest.class);
 
     @Test
+    public void testResolve() {
+        long v = 1951374178145726l;
+        // long v =  1951364703848831l;
+        HighSwallowConvetor highSwallowConvetor = new HighSwallowConvetor();
+        Id convert = highSwallowConvetor.convert(v);
+        logger.info("时间为: {}", convert.getDateTime());
+    }
+
+    @Test
     public void highSwallowSimpleTest() {
         for (int j = 0; j < 10; j++) {
             IdService idService = new HighSwallowIdService(j);
@@ -44,7 +53,7 @@ public class SimpleIdServiceTest {
     public void testHighSwallowUniqueness() {
         //redisTemplate.delete(REDIS_KEY);
         IdService idService = new HighSwallowIdService(0);
-        int times = 50_000_000;
+        int times = 10_000_000;
         int threadNum = 100;
         Thread[] threads = new Thread[threadNum];
         FutureTask<Long[]>[] tasks = new FutureTask[threadNum];
@@ -152,4 +161,6 @@ public class SimpleIdServiceTest {
         System.out.println("共有数据条数: " + dataSet.size());
         Assert.assertEquals("最终数据不唯一", times, dataSet.size());
     }
+
+
 }

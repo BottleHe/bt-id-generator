@@ -1,0 +1,24 @@
+server:
+  port: 17782
+  undertow:
+    threads:
+      io: 16
+      worker: 128
+logging:
+  level:
+    ROOT: info
+  logback:
+    rollingpolicy:
+      max-file-size: 256MB
+      file-name-pattern: /Users/Bottle/Downloads/tmp/var/logs/common/id-publisher-service/main-%d{yyyy-MM-dd}.%i.log
+      clean-history-on-start: false
+      max-history: 7
+      total-size-cap: 10GB
+  file:
+    name: /Users/Bottle/Downloads/tmp/var/logs/common/id-publisher-service/main.log
+id-publisher:
+  cluster:
+    services:
+      - machine-id: 0
+        host: 127.0.0.1
+        port: ${server.port}

@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: dev-local
+  application:
+    name: springboot-bt-id-publisher-service
