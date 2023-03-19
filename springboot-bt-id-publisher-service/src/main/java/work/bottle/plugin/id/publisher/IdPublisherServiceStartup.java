@@ -14,8 +14,8 @@ public class IdPublisherServiceStartup {
 
     public static void main(String[] args) {
         try {
-            logger.info("Loading local hostnames ... ");
-            loadHostNameList();
+//            logger.info("Loading local hostnames ... ");
+//            loadHostNameList();
             SpringApplication.run(IdPublisherServiceStartup.class, args);
         } catch (Exception e) {
             logger.error("Startup error", e);
