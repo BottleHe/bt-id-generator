@@ -12,6 +12,7 @@
         <module>bt-id-generator-core</module>
         <module>embed-test</module>
         <module>http-bt-id-consumer-client</module>
+        <module>bt-feign-plugin</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

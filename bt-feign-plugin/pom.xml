@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>work.bottle.plugin</groupId>
-    <artifactId>http-bt-id-consumer-client</artifactId>
-    <name>id-consumer-client</name>
+    <artifactId>bt-feign-plugin</artifactId>
     <version>1.0.1</version>
-    <url>https://github.com/BottleHe/bt-id-generator</url>
+
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <developers>
         <developer>
@@ -24,16 +24,6 @@
             <timezone>+8</timezone>
         </developer>
     </developers>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>nexus-bottle</id>
-            <url>https://nexus.bottle.work/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>nexus-bottle</id>
-            <url>https://nexus.bottle.work/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -41,37 +31,9 @@
             <version>1.7.36</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.11</version>
-        </dependency>
-        <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-core</artifactId>
             <version>11.9</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-okhttp</artifactId>
-            <version>11.9</version>
-        </dependency>
-        <dependency>
-            <groupId>work.bottle.plugin</groupId>
-            <artifactId>bt-feign-plugin</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-jackson -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-jackson</artifactId>
-            <version>11.9</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -94,6 +56,19 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.3.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

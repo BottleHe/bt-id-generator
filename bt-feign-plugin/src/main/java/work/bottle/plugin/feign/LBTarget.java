@@ -1,9 +1,9 @@
-package work.bottle.plugin.id.consumer.client;
+package work.bottle.plugin.feign;
+
 
 import feign.Request;
 import feign.RequestTemplate;
 import feign.Target;
-
 import java.util.List;
 
 import static feign.Util.checkNotNull;
@@ -46,9 +46,7 @@ public class LBTarget<T> implements Target<T> {
     /* no authentication or other special activity. just insert the url. */
     @Override
     public Request apply(RequestTemplate input) {
-        if (input.url().indexOf("http") != 0) {
-            input.target(url());
-        }
+        input.target(url()); // 通过我们的url方法, 更新使用下一个可用的URL
         return input.request();
     }
 

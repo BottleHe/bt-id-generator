@@ -5,6 +5,7 @@ import feign.Retryer;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.okhttp.OkHttpClient;
+import work.bottle.plugin.feign.LBTarget;
 import work.bottle.plugin.id.consumer.client.config.IdPublisherProperties;
 
 public class IdServiceFactory {
