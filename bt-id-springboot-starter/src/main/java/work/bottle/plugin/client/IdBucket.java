@@ -59,7 +59,7 @@ public class IdBucket implements IdService {
      */
     public void populatorIdSafe() {
         // 数据填充
-        if (LAW_WATER > idQueue.size()) {
+        if (LAW_WATER > IdBucket.this.idQueue.size()) {
             IdBucket.this.lock.lock();
             try {
                 if (LAW_WATER > IdBucket.this.idQueue.size()) {

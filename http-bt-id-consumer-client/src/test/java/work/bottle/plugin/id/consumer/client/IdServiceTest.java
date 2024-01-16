@@ -19,7 +19,10 @@ public class IdServiceTest {
     public void testMultiThreadRequest() throws InterruptedException, ExecutionException {
         IdPublisherProperties idPublisherProperties = new IdPublisherProperties();
         List<String> domainList = new ArrayList<>();
-        domainList.add("http://127.0.0.1:17782");
+        // domainList.add("http://127.0.0.1:17782");
+        domainList.add("http://177.19.120.11:31782");
+        domainList.add("http://177.19.120.12:31782");
+        domainList.add("http://177.19.120.13:31782");
         idPublisherProperties.setServiceDomainList(domainList);
         final int TIMES = 1_000_000;
         final int THREAD_NUM = 100;
@@ -66,7 +69,11 @@ public class IdServiceTest {
     public void testMultiThreadRequest2() throws InterruptedException, ExecutionException {
         IdPublisherProperties idPublisherProperties = new IdPublisherProperties();
         List<String> domainList = new ArrayList<>();
-        domainList.add("http://127.0.0.1:17782");
+//        domainList.add("http://127.0.0.1:17782");
+
+        domainList.add("http://177.19.120.11:31782");
+        domainList.add("http://177.19.120.12:31782");
+        domainList.add("http://177.19.120.13:31782");
         idPublisherProperties.setServiceDomainList(domainList);
         final int TIMES = 1_000_000;
         final int THREAD_NUM = 100;

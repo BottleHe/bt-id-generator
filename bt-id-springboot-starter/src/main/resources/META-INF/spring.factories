@@ -1,4 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  work.bottle.plugin.client.BtIdProperties,\
-  work.bottle.plugin.client.BtIdServiceConfig,\
-  work.bottle.plugin.client.DefaultExecutorFactory
+  work.bottle.plugin.client.BtIdServiceConfig
