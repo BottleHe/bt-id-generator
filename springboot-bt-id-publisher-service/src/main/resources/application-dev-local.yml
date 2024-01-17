@@ -5,7 +5,7 @@ server:
       io: 16
       worker: 128
 logging:
-  log-root: /Users/Bottle/Downloads/tmp/var/logs/common
+  log-root: /Users/Bottle/Downloads/application-temp/var/logs/common
   level:
     ROOT: info
   logback:
@@ -17,6 +17,10 @@ logging:
       total-size-cap: 10GB
   file:
     name: ${logging.log-root}/id-publisher-service/main.log
+spring:
+  threads:
+    virtual:
+      enabled: true
 id-publisher:
   cluster:
     services:

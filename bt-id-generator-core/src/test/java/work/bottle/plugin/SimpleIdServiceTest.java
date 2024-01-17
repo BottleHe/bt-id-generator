@@ -161,6 +161,4 @@ public class SimpleIdServiceTest {
         System.out.println("共有数据条数: " + dataSet.size());
         Assert.assertEquals("最终数据不唯一", times, dataSet.size());
     }
-
-
 }

@@ -3,7 +3,6 @@ package work.bottle.plugin.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.lang.Nullable;
 import work.bottle.plugin.id.consumer.client.IdService;
 
 import java.util.ArrayList;
@@ -41,8 +40,8 @@ public class IdBucket implements IdService {
      */
     private final IdService sourceIdService;
 
-    public IdBucket(IdService sourceIdService, @Nullable Executor executor) {
-        this.executor = null == executor ? Executors.newFixedThreadPool(1) : executor;
+    public IdBucket(IdService sourceIdService, Executor executor) {
+        this.executor = null == executor ? Executors.newVirtualThreadPerTaskExecutor() : executor;
         this.sourceIdService = sourceIdService;
         populatorIdBucket();
     }
@@ -58,6 +57,7 @@ public class IdBucket implements IdService {
      * 安全的同步填充ID缓存, 一般是在非执行线程中执行时需要.
      */
     public void populatorIdSafe() {
+//        logger.info("populatorIdSafe");
         // 数据填充
         if (LAW_WATER > IdBucket.this.idQueue.size()) {
             IdBucket.this.lock.lock();
@@ -78,7 +78,7 @@ public class IdBucket implements IdService {
     public int populatorId() {
         int n = 0;
         do {
-            int p = CAPACITY - idQueue.size() > 1000 ? 1000 : CAPACITY - idQueue.size();
+            int p = Math.min(CAPACITY - idQueue.size(), 1000);
             List<Long> next = IdBucket.this.sourceIdService.next(p);
             n += next.size();
             next.forEach(idQueue::addLast);

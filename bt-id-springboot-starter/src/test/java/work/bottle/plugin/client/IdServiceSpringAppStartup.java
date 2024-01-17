@@ -1,4 +1,4 @@
-package work.bottle.plugin;
+package work.bottle.plugin.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,6 @@ public class IdServiceSpringAppStartup {
     private static final Logger logger = LoggerFactory.getLogger(IdServiceSpringAppStartup.class);
 
     public static void main(String[] args) {
-//        logger.info("IdServiceSpringAppStartup starting...");
         try {
             SpringApplication.run(IdServiceSpringAppStartup.class, args);
         } catch (Exception e) {

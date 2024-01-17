@@ -1,29 +1,24 @@
-package work.bottle.plugin.service;
+package work.bottle.plugin.client.service;
 
+import jakarta.annotation.Resource;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import work.bottle.plugin.client.IdBucket;
 import work.bottle.plugin.id.consumer.client.IdService;
 import work.bottle.plugin.id.consumer.client.IdServiceFactory;
 import work.bottle.plugin.id.consumer.client.config.IdPublisherProperties;
 
-import javax.annotation.Resource;
 import java.util.*;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.FutureTask;
-import java.util.concurrent.atomic.AtomicInteger;
 
 //@RunWith(SpringRunner.class)
 //@SpringBootTest
 public class IdServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(IdServiceTest.class);
 
-//    @Resource
+    @Resource
     private IdService idService;
 
     @Test

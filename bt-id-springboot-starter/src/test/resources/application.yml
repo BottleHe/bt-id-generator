@@ -1,8 +1,12 @@
 spring:
   application:
     name: bt-id-springboot-starter-test
+  threads:
+    virtual:
+      enabled: true
 bt-id:
   service-domain-list:
-    - http://177.19.120.11:31782
-    - http://177.19.120.12:31782
-    - http://177.19.120.13:31782
+    - http://localhost:17782
+#    - http://177.19.120.11:31782
+#    - http://177.19.120.12:31782
+#    - http://177.19.120.13:31782
